@@ -1,6 +1,10 @@
 import { Box, Paper, TextField, Stack, Typography, Button } from '@mui/material';
 import { useLoginMutation } from '../store/authSlice';
 import { useState } from 'react';
+import { Link as RouterLink} from 'react-router-dom';
+import Link from '@mui/material/Link';
+import { useNavigate } from 'react-router-dom';
+
 
 export function Login() {
 
@@ -11,6 +15,8 @@ export function Login() {
   const handleLogin = async () => {
     try {
       const res = await login({ email, password }).unwrap();
+      localStorage.setItem("token", res.token);
+      navigate("/", { replace: true });
       console.log(res);
     } catch (err) {
       console.error(err);
@@ -116,6 +122,19 @@ export function Login() {
                 {isLoading ? 'Logging in...' : 'Login'}
               </Button>
             </Stack>
+            {/* Footer Text */}
+          <Typography variant="body2" textAlign="center" color='black'>
+            Don't have an account?{" "}
+            <Link
+              component={RouterLink}
+              to="/registration"
+              color="black"
+              underline="none"
+              fontWeight={1000}
+            >
+              Register
+            </Link>
+          </Typography>
 
           </Stack>
         </Paper>
