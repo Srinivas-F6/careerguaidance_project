@@ -1,8 +1,10 @@
 #body {
-    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Inter', 'Roboto', sans-serif;
+    color: #2E2E2E;
+    background-color: #F5F5F5;
 }
 
 .box {
@@ -13,65 +15,66 @@
 
 .back {
     float: right;
-    margin: 12px 25px;
-    padding: 10px 19px;
+    margin-right:20px;
+    margin-top: 13px;
+    padding: 8px 16px;
     font-size: 1.1em;
     font-weight: bold;
-    color: white;
-    background: linear-gradient(135deg, #46eaf9,#667eea); 
+    color: rgb(3, 3, 3);
+    background: linear-gradient(120deg,#46eaf9, #667eea);
     border: none;
-    border-radius: 50px; 
+    border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(251, 0, 0, 0.2);
     transition: all 0.6s ease;
-}
-
-.back:hover {
-    background: linear-gradient(135deg, #490779,#46eaf9); 
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    transform: scale(1.1);
 }
 
 .lst {
     display: flex;
     flex-direction: column;
-    padding-top: 40px;
+    padding-top: 25px;
     padding-right: 30px;
     padding-left: 30px;
     list-style-type: none;
     margin-bottom: 5px;
-    border:  2px groove #46eaf9;
+    border: 2px groove #46eaf9;
     border-radius: 30px;
     animation: rotate infinite normal 1s;
+    line-height: 1.6;
 }
 
-@keyframes rotate{
-    0%{
-        border:  2px groove #46eaf9;
+@keyframes rotate {
+    0% {
+        border: 2px groove #46eaf9;
         border-bottom-left-radius: 40px;
     }
-    25%{
-        border:  2px groove #27d7fa;
+
+    25% {
+        border: 2px groove #27d7fa;
         border-top-left-radius: 40px;
     }
-    50%{
-        border:  2px groove #26edea;
+
+    50% {
+        border: 2px groove #26edea;
         border-top-right-radius: 40px;
     }
-    75%{
-        border:  2px groove #39ddfa;
+
+    75% {
+        border: 2px groove #39ddfa;
         border-bottom-right-radius: 40px;
     }
-    100%{
-        border:  2px groove #3cfaca;
+
+    100% {
+        border: 2px groove #3cfaca;
         border-bottom-left-radius: 40px;
     }
 }
 
-.lst .explore{
+.lst .explore {
     float: right
 }
-.explore{
+
+.explore {
     width: 90px;
     align-self: flex-end;
     text-align: center;
@@ -80,30 +83,29 @@
     font-size: 1em;
     font-weight: bold;
     color: white;
-    background: linear-gradient(135deg, #46eaf9,#667eea); 
+    background: linear-gradient(135deg, #46eaf9, #667eea);
     border: none;
-    border-radius: 50px; 
+    border-radius: 50px;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.6s ease;
 }
 
 .lst .explore:hover {
-    background: linear-gradient(135deg, #490779,#46eaf9); 
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     transform: scale(0.88);
 }
 
-.tags{
+.tags {
     padding-top: 20px;
     padding-left: 50px;
-    background: linear-gradient(135deg, #46eaf9, #764ba2);
+    background: linear-gradient(135deg, #46eaf9);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; 
+    -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-.dbox{
+.dbox {
     margin-top: 15px;
     margin-left: 30px;
     margin-right: 30px;
@@ -111,13 +113,14 @@
     flex-direction: column;
 }
 
-.dlst{
-    border:  2px groove #46eaf9;
+.dlst {
+    border: 2px groove #46eaf9;
     border-radius: 30px;
     padding: 20px 20px;
     list-style: none;
-    margin-bottom:5px ;
+    margin-bottom: 5px;
     animation: rotate infinite normal 1s;
+    line-height: 1.6;
 }
 
 @media (max-width: 478px) {
@@ -131,6 +134,7 @@
         border-radius: 20px;
         font-size: 0.8em;
         line-height: 1.6;
+
     }
 
     .explore {
@@ -140,7 +144,8 @@
         font-size: 0.9em;
         align-self: end;
     }
-    .back{
+
+    .back {
         width: 22%;
         margin: 10px 0;
         padding: 10px;

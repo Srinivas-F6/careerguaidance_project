@@ -1,190 +1,128 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Box, Paper, TextField, Stack, Typography, Button } from '@mui/material';
+import { useLoginMutation } from '../store/authSlice';
+import { useState } from 'react';
+
 export function Login() {
-  const blocks = Array.from({ length: 105 }, (_, i) => (
-    <div key={i} className="block"></div>
-  ));
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [login, { isLoading, error }] = useLoginMutation();
+
+  const handleLogin = async () => {
+    try {
+      const res = await login({ email, password }).unwrap();
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
-    <>
-      <style>{`
-        body {
-          margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        }
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: 'whitesmoke',
+      }}
+    >
+      {/* Wrapper */}
+      <Box sx={{ position: 'relative', left: '20%', marginTop: '-7%', marginRight: '17%' }}>
 
-        .grid-container { 
-         display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-auto-rows: 1fr;       
-  box-sizing: border-box;
-  width: 100%;
-  height: 87vh;
+        {/* Overlapping Image */}
+        <Box
+          component="img"
+          src="./login.png"
+          alt="Login"
+          sx={{
+            position: 'absolute',
+            left: '-23.7%',
+            height: 250,
+            zIndex: 2,
+          }}
+        />
 
-}
+        {/* Paper */}
+        <Paper
+          elevation={10}
+          sx={{
+            width: 400,
+            padding: 4,
+            pt: 10,
+            borderRadius: 3,
+            zIndex: 1,
+            marginRight: 4,
+          }}
+        >
+          <Stack spacing={4}>
 
-        .block {
-          background-color: #00070c;
-        border: 1px solid rgb(1, 7, 8);
-        width: 100%;  
-        transition: background-color 3s ease, border 0.3s ease;
-        }
+            {/* Title */}
+            <Stack spacing={1}>
+              <Typography
+                variant="h5"
+                fontWeight="bold"
+                textAlign="center"
+                sx={{ color: 'blue' }}
+              >
+                Welcome Back !
+              </Typography>
 
-        .block:hover {
-          background-color: cyan;
-        border: 1px solid black;
-        transition: background-color 0s ease, border 0s ease;
-        z-index:1;
-        }
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                textAlign="center"
+              >
+                Please login to your account
+              </Typography>
+            </Stack>
 
-        .form {
-          position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 4;
+            {/* Form */}
+            <Stack spacing={3}>
+              <TextField
+                required
+                label="Email"
+                type="email"
+                variant="standard"
+                onChange={(e) => setEmail(e.target.value)}
+                fullWidth
+              />
 
-        background-color:black;
-        border-radius: 8px;
-        }
+              <TextField
+                required
+                label="Password"
+                type="password"
+                variant="standard"
+                onChange={(e) => setPassword(e.target.value)}
+                fullWidth
+              />
 
-        form {
-          display: flex;
-        flex-direction: column;
-        gap: 5px;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(66, 210, 233, 0.3);
-        }
+              {error && (
+                <Typography color="error" variant="body2">
+                  Login failed
+                </Typography>
+              )}
 
-        h1.sign {
-          text - align: center;
-        margin-bottom: 10px;
-        }
+              <Button
+                variant="contained"
+                size="large"
+                fullWidth
+                onClick={handleLogin}
+                sx={{
+                  mt: 2,
+                  borderRadius: 2,
+                  background: 'linear-gradient(135deg, #000000ff, #000000ff)',
+                }}
+              >
+                {isLoading ? 'Logging in...' : 'Login'}
+              </Button>
+            </Stack>
 
-        label {
-          font-weight: bold;
-        margin-bottom:2px;
-        }
-
-        input, button {
-          padding: 6px;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        font-size: 15px;
-        color:black;
-        margin-bottom:5px;
-        }
-
-        .btn {
-          background: #0a3d62;
-        color: black;
-        border: none;
-        cursor: pointer;
-        margin-top:4px;
-        margin-bottom:5px;
-        transition: background 0.3s ease;
-        width:40%;
-        text-align:center;
-        }
-
-        .btn:hover {
-          background: cyan;
-        }
-
-        p {
-          margin: 0;
-        font-size: 12px;
-        font-weight: normal;
-        line-height: 1.2;
-        display:flex;
-        justify-content:end;
-        align-items:center;
-        margin-bottom:15px;
-        }
-
-        p a {
-          text - decoration: none;
-        color: blue;
-        vertical-align: middle;
-        align-self:flex-end;
-        padding-left:3px;
-        transistion: 3s linear;
-        }
-
-        a:active{
-          transform:scale(1.1);
-      }
-      @media (max-width: 480px) {
-        .grid-container {
-          grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-          grid-auto-rows: 1fr;
-        }
-
-        .form {
-          width: 70%;  
-        }
-
-        form {
-          padding: 20px;
-          gap: 5px;
-        }
-
-        h1.sign {
-          font-size: 20px;
-          text-align: center;
-          color: cyan;
-        }
-
-        input, button {
-          font-size: 13px;
-          padding: 5px;
-          font-weight: normal;
-        }
-
-        .btn {
-          width: 38%;
-          font-size: 14px;
-        }
-
-        p {
-          font-size: 11px;
-        }
-      }
-    `}
-
-      </style>
-      <div className="grid-container">
-        {blocks}
-
-        <div className="form">
-          <form>
-            <h1 className="sign">Sign In</h1>
-
-            <label htmlFor="username">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter Email"
-              required
-            />
-
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter Password"
-              required
-            />
-
-            <input type="submit" value="Sign In" className="btn" />
-            <p>Don't have an account? <Link to={'/registration'}>Register</Link></p>
-          </form>
-        </div>
+          </Stack>
+        </Paper>
+      </Box>
+      <div style={{ marginBottom: '100px', marginRight: -170 }}>
+        <img src="./loginImage.png" height={'500px'} />
       </div>
-    </>
+    </Box>
   );
 }

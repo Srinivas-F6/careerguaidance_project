@@ -14,7 +14,7 @@ function Home() {
         reliable, and easy-to-understand guidance, helping students choose the right path with confidence.
       </p>
 
-      <img src={chatgptimg4} alt="career" className="main-image" />
+      {/* <img src={chatgptimg4} alt="career" className="main-image" /> */}
 
       <h3 className="sideheading">Why This Website is Useful</h3>
       <ol className="main-list">
@@ -56,7 +56,9 @@ function Home() {
       </p>
       <style>
         {
-          `.home-container {
+
+
+  `.home-container {
   margin: 30px;
   padding: 13px 20px;
 }
@@ -97,7 +99,6 @@ function Home() {
 .lstheading {
   margin-bottom: 10px;
   font-size: 1.2rem;
-  font-weight: 600;
 }
 
 .insidelst {
