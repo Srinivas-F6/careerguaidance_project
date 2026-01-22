@@ -7,10 +7,11 @@ import { About } from "./components/About";
 import { Login } from "./components/login";
 import { Registration } from "./components/registration";
 import Navbars from "./navbar";
+import { useState } from "react";
 
 function App() {
 
-  const isAuthenticated = !!localStorage.getItem("token");
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
 
   return (
     <>
@@ -27,7 +28,7 @@ function App() {
 
         {/* Public routes */}
         <Route path="/registration" element={<Registration />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
 
         {/* Protected routes */}
         <Route

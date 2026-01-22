@@ -3,22 +3,34 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Link } from '@mui/material';
 import { useState } from 'react';
 import { useRegisterMutation } from '../store/authSlice';
+import { useNavigate } from 'react-router-dom';
 export function Registration() {
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
 
   const [register, { isLoading, error }] = useRegisterMutation();
 
   const handleRegister = async () => {
-    if (password !== confirmPassword) return;
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
 
     try {
       await register({ username, email, password }).unwrap();
+      alert("Registration successful");
+      navigate("/login",{replace:true});
+
     } catch (err) {
-      console.error(err);
+      if (err?.data?.message) {
+        alert(err.data.message);
+      } else {
+        alert("Registration failed");
+      }
     }
   };
 
@@ -35,14 +47,15 @@ export function Registration() {
       }}
     >
       {/* Left Image */}
-      <div style={{ marginBottom: '60px' }}>
+      <Box sx={{display: { xs: 'none', md: 'block' },}}>
+        <div style={{ marginBottom: '60px' }}>
         <img
           src="./registration.png"
           alt="Register"
           height={500}
         />
       </div>
-
+      </Box>
 
       {/* Register Card */}
       <Paper
@@ -115,12 +128,6 @@ export function Registration() {
 
             }}
           />
-
-          {error && (
-            <Typography color="error" variant="body2">
-              Registration failed
-            </Typography>
-          )}
 
           {/* Register Button */}
           <Button

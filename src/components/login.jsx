@@ -1,25 +1,35 @@
 import { Box, Paper, TextField, Stack, Typography, Button } from '@mui/material';
 import { useLoginMutation } from '../store/authSlice';
 import { useState } from 'react';
-import { Link as RouterLink} from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router-dom';
 
 
-export function Login() {
+export function Login({setIsAuthenticated}) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login, { isLoading, error }] = useLoginMutation();
 
+  const navigate = useNavigate();
+
   const handleLogin = async () => {
     try {
       const res = await login({ email, password }).unwrap();
       localStorage.setItem("token", res.token);
+      setIsAuthenticated(true);
+      console.log(res.token);
       navigate("/", { replace: true });
       console.log(res);
     } catch (err) {
-      console.error(err);
+      if (err?.data?.message) {
+        alert(err.data.message)
+        console.log(err);
+      }
+      else {
+        alert("Login Failed")
+      }
     }
   };
   return (
@@ -41,6 +51,7 @@ export function Login() {
           src="./login.png"
           alt="Login"
           sx={{
+            display: { xs: 'none', md: 'block' },
             position: 'absolute',
             left: '-23.7%',
             height: 250,
@@ -102,12 +113,6 @@ export function Login() {
                 fullWidth
               />
 
-              {error && (
-                <Typography color="error" variant="body2">
-                  Login failed
-                </Typography>
-              )}
-
               <Button
                 variant="contained"
                 size="large"
@@ -123,25 +128,28 @@ export function Login() {
               </Button>
             </Stack>
             {/* Footer Text */}
-          <Typography variant="body2" textAlign="center" color='black'>
-            Don't have an account?{" "}
-            <Link
-              component={RouterLink}
-              to="/registration"
-              color="black"
-              underline="none"
-              fontWeight={1000}
-            >
-              Register
-            </Link>
-          </Typography>
+            <Typography variant="body2" textAlign="center" color='black'>
+              Don't have an account?{" "}
+              <Link
+                component={RouterLink}
+                to="/registration"
+                color="black"
+                underline="none"
+                fontWeight={1000}
+              >
+                Register
+              </Link>
+            </Typography>
 
           </Stack>
         </Paper>
       </Box>
-      <div style={{ marginBottom: '100px', marginRight: -170 }}>
-        <img src="./loginImage.png" height={'500px'} />
-      </div>
+      <Box sx={{display: { xs: 'none', md: 'block' }}}>
+        <div style={{ marginBottom: '100px', marginRight: -170 }}>
+          <img src="./loginImage.png" height={'500px'} />
+        </div>
+      </Box>
+
     </Box>
   );
 }

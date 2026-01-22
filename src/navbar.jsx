@@ -11,7 +11,7 @@ function Navbars() {
                     <img src={logo} alt="logo"></img>
                 </div>
                 <div className="left">
-                    <h1>Career Guaidance</h1>
+                    <h1>Career Guidance</h1>
                 </div>
                 <div className="right">
                     <nav>
