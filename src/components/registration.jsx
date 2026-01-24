@@ -28,8 +28,10 @@ export function Registration() {
     } catch (err) {
       if (err?.data?.message) {
         alert(err.data.message);
+        console.log(err);
       } else {
         alert("Registration failed");
+        console.log(err);
       }
     }
   };
